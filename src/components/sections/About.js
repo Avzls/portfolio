@@ -11,7 +11,7 @@ const About = () => {
         >
           <div>
             <div>
-              <img className="my-photo" src="assets/alvin.jpg" alt="" />
+              <img className="my-photo" src="assets/pasfoto.jpg" alt="" />
             </div>
           </div>
         </div>
@@ -87,7 +87,7 @@ const About = () => {
             </ul>
           </div>
           <div className="download-cv-button">
-            <a href="assets/alvin.pdf" download>
+            <a href="assets/ALVIN_MALIK.pdf" download>
               Download CV
             </a>
           </div>
@@ -264,7 +264,7 @@ const About = () => {
                   <h4>Customer Service</h4>
                   <p>
                     <i className="fa-regular fa-clock" />
-                    <span>2022 - Sekarang</span>
+                    <span>2022 - 2024</span>
                   </p>
                   <p>
                     <i className="fa-regular fa-building" />
@@ -275,13 +275,13 @@ const About = () => {
             </li>
             {/* TIMELINE ITEM ENDS */}
             {/* TIMELINE ITEM STARTS */}
-            <li>
+            {/* <li>
               <div className="animated-layer fade-in-up-animation fadeInUp wow">
                 <div className="experience">
                   <h4>Chief Technology Officer</h4>
                   <p>
                     <i className="fa-regular fa-clock" />
-                    <span>2019 - Sekarang</span>
+                    <span>2019 - 2024</span>
                   </p>
                   <p>
                     <i className="fa-solid fa-building" />
@@ -289,7 +289,7 @@ const About = () => {
                   </p>
                 </div>
               </div>
-            </li>
+            </li> */}
             {/* TIMELINE ITEM ENDS */}
             {/* TIMELINE ITEM STARTS */}
             <li>
@@ -298,7 +298,7 @@ const About = () => {
                   <h4>Backend Developer</h4>
                   <p>
                     <i className="fa-regular fa-clock" />
-                    <span>2021 - Sekarang</span>
+                    <span>2021 - 2024</span>
                   </p>
                   <p>
                     <i className="fa-solid fa-building" />
