@@ -18,11 +18,11 @@ const Copyright = () => {
           </a>
         </span>
         <ul>
-          <li>
+          {/* <li>
           <a href="assets/alvin.pdf" download>
               <i className="fas fa-download" />
             </a>
-          </li>
+          </li> */}
           {/* <li>
             <a href="#">
               <i className="fa-brands fa-twitter" />
