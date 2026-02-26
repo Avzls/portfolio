@@ -1,4 +1,4 @@
-const Copyright = () => {
+const Copyright = ({ profile }) => {
   return (
     <section className="copyright">
       <img
@@ -7,38 +7,14 @@ const Copyright = () => {
         src="assets/separator-copyright.png"
       />
       <div>
-        <span>© {new Date().getFullYear()} Alvin Malik</span>
+        <span>© {new Date().getFullYear()} {profile?.name || "Alvin Malik"}</span>
         <span>
           Designed By{" "}
-          <a
-            target="_blank"
-            href=""
-          >
+          <a target="_blank" href="">
             Avzl
           </a>
         </span>
-        <ul>
-          {/* <li>
-          <a href="assets/alvin.pdf" download>
-              <i className="fas fa-download" />
-            </a>
-          </li> */}
-          {/* <li>
-            <a href="#">
-              <i className="fa-brands fa-twitter" />
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i className="fa-brands fa-dribbble" />
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i className="fa-brands fa-facebook" />
-            </a>
-          </li> */}
-        </ul>
+        <ul></ul>
       </div>
     </section>
   );
