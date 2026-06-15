@@ -17,8 +17,17 @@ import (
 func main() {
 	cfg := config.Load()
 
+	// Guard against shipping the built-in development secret to production.
+	if cfg.JWTSecret == "vinnn-porto-secret-key-2024" {
+		log.Println("⚠️  WARNING: using the default JWT_SECRET. Set a strong JWT_SECRET env var in production.")
+	}
+	if cfg.AllowedOrigin == "*" {
+		log.Println("⚠️  WARNING: CORS is open to all origins (*). Set ALLOWED_ORIGIN to your frontend URL in production.")
+	}
+
 	// Connect to database
 	database.Connect(cfg)
+
 	database.Migrate()
 	database.Seed()
 
@@ -40,6 +49,12 @@ func main() {
 	r.Use(chiMiddleware.Logger)
 	r.Use(chiMiddleware.Recoverer)
 	r.Use(middleware.CORS(cfg))
+
+	// Health check (for load balancers / container orchestration)
+	r.Get("/health", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte(`{"status":"ok"}`))
+	})
 
 	// Serve uploaded files
 	fileServer := http.FileServer(http.Dir(cfg.UploadDir))
