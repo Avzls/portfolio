@@ -1,0 +1,24 @@
+# systemd unit for the Go API.
+# Install to: /etc/systemd/system/porto-api.service
+# Then: sudo systemctl daemon-reload && sudo systemctl enable --now porto-api
+
+[Unit]
+Description=Porto Go API
+After=network.target mysql.service
+Wants=mysql.service
+
+[Service]
+Type=simple
+User=porto
+Group=porto
+WorkingDirectory=/var/www/porto/go-api
+# Reads /var/www/porto/go-api/.env via the app's built-in loader.
+ExecStart=/var/www/porto/go-api/porto-api
+Restart=always
+RestartSec=3
+# Basic hardening
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

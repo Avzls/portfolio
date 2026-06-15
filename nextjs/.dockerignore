@@ -1,8 +1,0 @@
-node_modules
-.next
-out
-build
-.env.local
-.env
-npm-debug.log*
-temp_*.txt

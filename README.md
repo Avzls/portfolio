@@ -41,33 +41,16 @@ npm run dev
 - Public site: http://localhost:3000
 - Admin dashboard: http://localhost:3000/admin/dashboard
 
-## Deployment (Docker)
+## Deployment (VPS)
 
-The repo ships with Dockerfiles for both services and a full-stack
-`docker-compose.yml` (MySQL + API + Web).
+For deploying to your own Ubuntu/Debian VPS with **systemd + Nginx**, see
+[DEPLOY.md](DEPLOY.md). The `deploy/` folder contains:
 
-```bash
-cp .env.example .env        # fill in strong secrets + your real domains
-docker compose up -d --build
-```
+- `porto-api.service` / `porto-web.service` — systemd units for the API and web
+- `nginx.conf` — reverse proxy (one domain → `/` to Next.js, `/api` + `/uploads` to the Go API)
+- `deploy.sh` — pull, build both apps, restart services
 
-This brings up:
-
-- `db` — MySQL 8 (data persisted in the `db_data` volume; not exposed to host)
-- `api` — Go API on port `8081` (uploads persisted in the `uploads_data` volume)
-- `web` — Next.js on port `3000`
-
-Put a reverse proxy (Nginx/Caddy/Traefik) in front to terminate TLS and route
-your domains to the `web` and `api` containers.
-
-### Production checklist
-
-- [ ] Set a strong, random `JWT_SECRET` (e.g. `openssl rand -base64 48`).
-- [ ] Set `ALLOWED_ORIGIN` to your exact frontend URL (never `*`).
-- [ ] Set `NEXT_PUBLIC_API_URL` to the public API URL (baked at build time).
-- [ ] Change the default admin password (`admin` / `admin123`) after first login.
-- [ ] Use strong DB passwords; the DB port is not exposed to the host by default.
-- [ ] Serve everything over HTTPS via your reverse proxy.
+Updating after a code change is just `bash deploy/deploy.sh` on the server.
 
 Health check endpoint: `GET /health` on the API returns `{"status":"ok"}`.
 

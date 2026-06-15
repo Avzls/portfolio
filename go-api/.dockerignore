@@ -1,8 +1,0 @@
-.env
-*.log
-*.exe
-porto-api
-porto-api.exe
-uploads/*
-!uploads/.gitkeep
-*.ps1
