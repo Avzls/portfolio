@@ -308,6 +308,40 @@ const About = () => {
               </div>
             </li>
             {/* TIMELINE ITEM ENDS */}
+            {/* TIMELINE ITEM STARTS */}
+            <li>
+              <div className="animated-layer fade-in-up-animation fadeInUp wow">
+                <div className="experience">
+                  <h4>IT Developer</h4>
+                  <p>
+                    <i className="fa-regular fa-clock" />
+                    <span>2025</span>
+                  </p>
+                  <p>
+                    <i className="fa-solid fa-building" />
+                    <span>Lippo Group</span>
+                  </p>
+                </div>
+              </div>
+            </li>
+            {/* TIMELINE ITEM ENDS */}
+            {/* TIMELINE ITEM STARTS */}
+            <li>
+              <div className="animated-layer fade-in-down-animation fadeInUp wow">
+                <div className="experience">
+                  <h4>IT Developer</h4>
+                  <p>
+                    <i className="fa-regular fa-clock" />
+                    <span>2026</span>
+                  </p>
+                  <p>
+                    <i className="fa-solid fa-building" />
+                    <span>Yasunaga Indonesia</span>
+                  </p>
+                </div>
+              </div>
+            </li>
+            {/* TIMELINE ITEM ENDS */}
             <li />
           </ol>
         </div>
