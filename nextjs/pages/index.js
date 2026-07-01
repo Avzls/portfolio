@@ -2,7 +2,6 @@ import Head from "next/head";
 import Header from "@/src/components/Header";
 import ScrollBar from "@/src/components/ScrollBar";
 import About from "@/src/components/sections/About";
-import Blog from "@/src/components/sections/Blog";
 import Clients from "@/src/components/sections/Clients";
 import Contact from "@/src/components/sections/Contact";
 import Copyright from "@/src/components/sections/Copyright";
@@ -51,8 +50,6 @@ const Index = ({ profile, skills, experiences, portfolios, socialLinks, settings
             <Contact profile={profile} socialLinks={socialLinks} />
             <Separator type={"down"} />
             <Separator type={"up"} />
-            <Blog posts={blogPosts} />
-            <Separator type={"down"} />
             <Copyright profile={profile} settings={settings} />
 
           </main>

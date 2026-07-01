@@ -24,6 +24,8 @@ const SalimovHead = () => {
       <link rel="stylesheet" href={asset("/css/animate.min.css")} />
       <link rel="stylesheet" href={asset("/css/jquery.mCustomScrollbar.min.css")} />
       <link rel="stylesheet" href={asset("/css/style.css")} />
+      {/* Mobile / responsive overrides (loaded last to win over theme CSS) */}
+      <link rel="stylesheet" href={asset("/css/mobile.css")} />
       {/* Live Style Switcher - demo only */}
       <link rel="stylesheet" type="text/css" href={asset("/css/styleswitcher.css")} />
     </Head>
