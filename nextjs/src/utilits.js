@@ -139,6 +139,8 @@ export const jqueryFuntion = () => {
           keyboard: { enable: true, scrollType: "stepless" },
           advanced: {
             autoExpandHorizontalScroll: true,
+            updateOnContentResize: true,
+            updateOnImageLoad: true,
           },
           mouseWheel: {
             scrollAmount: 400,
@@ -150,6 +152,21 @@ export const jqueryFuntion = () => {
             },
           },
         });
+
+        // Force the horizontal scroller to recompute its size after images and
+        // fonts finish loading. Measured too early, the layout is wrong and
+        // content gets clipped (looks all black) until a window resize forces a
+        // recalc -- which is exactly why opening/closing DevTools "fixes" it.
+        var forceUpdate = function () {
+          try {
+            $("#wrapper").mCustomScrollbar("update");
+          } catch (e) {}
+          $(window).trigger("resize");
+          animateContent();
+        };
+        setTimeout(forceUpdate, 300);
+        setTimeout(forceUpdate, 1200);
+        $(window).on("load", forceUpdate);
       } else {
         if (typeof window !== "undefined") {
           window.WOW = require("wowjs");
