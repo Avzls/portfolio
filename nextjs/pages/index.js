@@ -13,43 +13,12 @@ import Separator from "@/src/components/Separator";
 
 import { jqueryFuntion } from "@/src/utilits";
 import { Fragment, useEffect } from "react";
+import siteData from "@/src/data";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
-
-// Fetch a single endpoint and parse JSON safely. If the endpoint is missing
-// (e.g. backend not restarted yet) or returns non-JSON, fall back gracefully
-// instead of crashing the whole page.
-async function fetchJson(path, fallback) {
-  try {
-    const res = await fetch(`${API_URL}${path}`);
-    if (!res.ok) return fallback;
-    const text = await res.text();
-    try {
-      return JSON.parse(text);
-    } catch {
-      console.error(`Non-JSON response from ${path}:`, text.slice(0, 80));
-      return fallback;
-    }
-  } catch (error) {
-    console.error(`Failed to fetch ${path}:`, error.message);
-    return fallback;
-  }
-}
-
-export async function getServerSideProps() {
-  const [profile, skills, experiences, portfolios, socialLinks, settings, facts, clients, blogPosts] = await Promise.all([
-    fetchJson("/api/profile", {}),
-    fetchJson("/api/skills", []),
-    fetchJson("/api/experiences", []),
-    fetchJson("/api/portfolios", []),
-    fetchJson("/api/social-links", []),
-    fetchJson("/api/settings", {}),
-    fetchJson("/api/facts", []),
-    fetchJson("/api/clients", []),
-    fetchJson("/api/blog-posts", []),
-  ]);
-
-  return { props: { profile, skills, experiences, portfolios, socialLinks, settings, facts, clients, blogPosts } };
+// Content is bundled at build time from the static data file, so the exported
+// site needs no backend at runtime.
+export function getStaticProps() {
+  return { props: siteData };
 }
 
 

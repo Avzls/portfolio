@@ -1,4 +1,4 @@
-import { resolveMedia } from "@/src/media";
+import { resolveMedia, asset } from "@/src/media";
 
 const About = ({ profile, skills, experiences }) => {
 
@@ -18,7 +18,7 @@ const About = ({ profile, skills, experiences }) => {
         >
           <div>
             <div>
-              <img className="my-photo" src={profile?.photo_url ? resolveMedia(profile.photo_url) : "assets/pasfoto.jpg"} alt={profile?.name} />
+              <img className="my-photo" src={profile?.photo_url ? resolveMedia(profile.photo_url) : asset("/assets/pasfoto.jpg")} alt={profile?.name} />
 
             </div>
           </div>
@@ -175,7 +175,7 @@ const About = ({ profile, skills, experiences }) => {
         </div>
       </div>
 
-      <img alt="" className="separator hide-mobile" src="assets/separator.png" />
+      <img alt="" className="separator hide-mobile" src={asset("/assets/separator.png")} />
     </section>
   );
 };

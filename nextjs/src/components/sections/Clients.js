@@ -1,5 +1,5 @@
 import { salimovSlider } from "@/src/sliderProps";
-import { resolveMedia } from "@/src/media";
+import { resolveMedia, asset } from "@/src/media";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Group clients into pairs so each slide shows two logos (matches the theme).
@@ -39,7 +39,7 @@ const Clients = ({ clients }) => {
       <img
         alt=""
         className="z-1 hide-mobile opposite-separator"
-        src="assets/separator-opposite.png"
+        src={asset("/assets/separator-opposite.png")}
       />
     </section>
   );

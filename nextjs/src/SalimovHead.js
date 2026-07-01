@@ -1,11 +1,13 @@
 import Head from "next/head";
+import { asset } from "@/src/media";
+
 const SalimovHead = () => {
   return (
     <Head>
       <title>Alvin Malik Portfolio</title>
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+      <link rel="icon" type="image/svg+xml" href={asset("/favicon.svg")} />
 
       {/* Template Google Fonts */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -15,18 +17,15 @@ const SalimovHead = () => {
         rel="stylesheet"
       />
       {/* Template CSS Files */}
-      <link rel="stylesheet" href="css/devicon.min.css" />
-      <link rel="stylesheet" href="css/all.min.css" />
-      <link rel="stylesheet" href="css/bootstrap.min.css" />
-      <link rel="stylesheet" href="css/swiper-bundle.min.css" />
-      <link rel="stylesheet" href="css/animate.min.css" />
-      <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css" />
-      <link rel="stylesheet" href="css/style.css" />
-      {/* CSS Skin File */}
-      {/* <link rel="stylesheet" href="css/skins/yellow.css" /> */}
+      <link rel="stylesheet" href={asset("/css/devicon.min.css")} />
+      <link rel="stylesheet" href={asset("/css/all.min.css")} />
+      <link rel="stylesheet" href={asset("/css/bootstrap.min.css")} />
+      <link rel="stylesheet" href={asset("/css/swiper-bundle.min.css")} />
+      <link rel="stylesheet" href={asset("/css/animate.min.css")} />
+      <link rel="stylesheet" href={asset("/css/jquery.mCustomScrollbar.min.css")} />
+      <link rel="stylesheet" href={asset("/css/style.css")} />
       {/* Live Style Switcher - demo only */}
-
-      <link rel="stylesheet" type="text/css" href="css/styleswitcher.css" />
+      <link rel="stylesheet" type="text/css" href={asset("/css/styleswitcher.css")} />
     </Head>
   );
 };

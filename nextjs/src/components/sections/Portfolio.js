@@ -1,5 +1,5 @@
 import { salimovSlider } from "@/src/sliderProps";
-import { resolveMedia } from "@/src/media";
+import { resolveMedia, asset } from "@/src/media";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 
@@ -87,7 +87,7 @@ const Portfolio = ({ portfolios }) => {
           <span />
         </div>
       </Swiper>
-      <img alt="" className="separator hide-mobile" src="assets/separator.png" />
+      <img alt="" className="separator hide-mobile" src={asset("/assets/separator.png")} />
     </section>
   );
 };

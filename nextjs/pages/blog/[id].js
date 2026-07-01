@@ -1,20 +1,19 @@
 import { Fragment, useEffect } from "react";
-import { resolveMedia } from "@/src/media";
+import { resolveMedia, asset } from "@/src/media";
+import { blogPosts } from "@/src/data";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+// Pre-render one static page per blog post at build time.
+export function getStaticPaths() {
+  return {
+    paths: blogPosts.map((p) => ({ params: { id: String(p.id) } })),
+    fallback: false,
+  };
+}
 
-export async function getServerSideProps({ params }) {
-
-  try {
-    const res = await fetch(`${API_URL}/api/blog-posts/${params.id}`);
-    if (!res.ok) {
-      return { notFound: true };
-    }
-    const post = await res.json();
-    return { props: { post } };
-  } catch (error) {
-    return { notFound: true };
-  }
+export function getStaticProps({ params }) {
+  const post = blogPosts.find((p) => String(p.id) === String(params.id));
+  if (!post) return { notFound: true };
+  return { props: { post } };
 }
 
 const BlogPost = ({ post }) => {
@@ -31,7 +30,7 @@ const BlogPost = ({ post }) => {
 
   return (
     <Fragment>
-      <a href="/" className="back-btn">
+      <a href={asset("/")} className="back-btn">
         <i className="fa-solid fa-arrow-left"></i>
       </a>
       <div className="blog-content">

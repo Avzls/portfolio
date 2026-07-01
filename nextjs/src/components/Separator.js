@@ -1,30 +1,13 @@
-const Separator = ({ type }) => {
-  switch (type) {
-    case "up":
-      return (
-        <img
-          alt=""
-          className="separator-mobile-up hide-desktop z-1"
-          src="assets/separator-mobile-up.png"
-        />
-      );
-    case "down":
-      return (
-        <img
-          alt=""
-          className="separator-mobile-up hide-desktop z-1"
-          src="assets/separator-mobile-up.png"
-        />
-      );
+import { asset } from "@/src/media";
 
-    default:
-      return (
-        <img
-          alt=""
-          className="separator-mobile-up hide-desktop z-1"
-          src="assets/separator-mobile-up.png"
-        />
-      );
-  }
+const Separator = ({ type }) => {
+  const src = asset("/assets/separator-mobile-up.png");
+  return (
+    <img
+      alt=""
+      className="separator-mobile-up hide-desktop z-1"
+      src={src}
+    />
+  );
 };
 export default Separator;

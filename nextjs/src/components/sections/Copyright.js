@@ -1,3 +1,5 @@
+import { asset } from "@/src/media";
+
 const Copyright = ({ profile, settings }) => {
   const designerName = settings?.designer_name || "Avzl";
   const designerUrl = settings?.designer_url || "";
@@ -6,7 +8,7 @@ const Copyright = ({ profile, settings }) => {
       <img
         alt=""
         className="z-1 hide-mobile"
-        src="assets/separator-copyright.png"
+        src={asset("/assets/separator-copyright.png")}
       />
       <div>
         <span>© {new Date().getFullYear()} {profile?.name || "Alvin Malik"}</span>

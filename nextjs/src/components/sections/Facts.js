@@ -1,3 +1,5 @@
+import { asset } from "@/src/media";
+
 const Facts = ({ facts }) => {
   const items = facts && facts.length ? facts : [];
 
@@ -25,7 +27,7 @@ const Facts = ({ facts }) => {
       <img
         alt=""
         className="z-1 hide-mobile opposite-separator"
-        src="assets/separator-opposite.png"
+        src={asset("/assets/separator-opposite.png")}
       />
     </section>
   );
