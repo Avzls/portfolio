@@ -87,7 +87,7 @@ const About = () => {
             </ul>
           </div>
           <div className="download-cv-button">
-            <a href="assets/ALVIN_MALIK.pdf" download>
+            <a href="assets/ALVIN%20MALIK%20CV.pdf" download="Alvin Malik CV.pdf">
               Download CV
             </a>
           </div>
