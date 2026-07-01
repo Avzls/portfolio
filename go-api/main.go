@@ -1,0 +1,124 @@
+package main
+
+import (
+	"fmt"
+	"log"
+	"net/http"
+
+	"porto-api/config"
+	"porto-api/database"
+	"porto-api/handlers"
+	"porto-api/middleware"
+
+	"github.com/go-chi/chi/v5"
+	chiMiddleware "github.com/go-chi/chi/v5/middleware"
+)
+
+func main() {
+	cfg := config.Load()
+
+	// Guard against shipping the built-in development secret to production.
+	if cfg.JWTSecret == "vinnn-porto-secret-key-2024" {
+		log.Println("⚠️  WARNING: using the default JWT_SECRET. Set a strong JWT_SECRET env var in production.")
+	}
+	if cfg.AllowedOrigin == "*" {
+		log.Println("⚠️  WARNING: CORS is open to all origins (*). Set ALLOWED_ORIGIN to your frontend URL in production.")
+	}
+
+	// Connect to database
+	database.Connect(cfg)
+
+	database.Migrate()
+	database.Seed()
+
+	// Init handlers
+	authHandler := &handlers.AuthHandler{Config: cfg}
+	profileHandler := &handlers.ProfileHandler{}
+	skillsHandler := &handlers.SkillsHandler{}
+	experiencesHandler := &handlers.ExperiencesHandler{}
+	portfoliosHandler := &handlers.PortfoliosHandler{}
+	socialLinksHandler := &handlers.SocialLinksHandler{}
+	settingsHandler := &handlers.SettingsHandler{}
+	factsHandler := &handlers.FactsHandler{}
+	clientsHandler := &handlers.ClientsHandler{}
+	blogPostsHandler := &handlers.BlogPostsHandler{}
+	uploadHandler := &handlers.UploadHandler{Config: cfg}
+
+	// Router
+	r := chi.NewRouter()
+	r.Use(chiMiddleware.Logger)
+	r.Use(chiMiddleware.Recoverer)
+	r.Use(middleware.CORS(cfg))
+
+	// Health check (for load balancers / container orchestration)
+	r.Get("/health", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte(`{"status":"ok"}`))
+	})
+
+	// Serve uploaded files
+	fileServer := http.FileServer(http.Dir(cfg.UploadDir))
+	r.Handle("/uploads/*", http.StripPrefix("/uploads/", fileServer))
+
+	// Public routes
+	r.Route("/api", func(r chi.Router) {
+		r.Post("/auth/login", authHandler.Login)
+
+		r.Get("/profile", profileHandler.Get)
+		r.Get("/skills", skillsHandler.List)
+		r.Get("/experiences", experiencesHandler.List)
+		r.Get("/portfolios", portfoliosHandler.List)
+		r.Get("/social-links", socialLinksHandler.List)
+		r.Get("/settings", settingsHandler.List)
+		r.Get("/facts", factsHandler.List)
+		r.Get("/clients", clientsHandler.List)
+		r.Get("/blog-posts", blogPostsHandler.List)
+		r.Get("/blog-posts/{id}", blogPostsHandler.Get)
+	})
+
+	// Admin routes (protected)
+	r.Route("/api/admin", func(r chi.Router) {
+		r.Use(middleware.Auth(cfg))
+
+		r.Put("/profile", profileHandler.Update)
+
+		r.Post("/skills", skillsHandler.Create)
+		r.Put("/skills/{id}", skillsHandler.Update)
+		r.Delete("/skills/{id}", skillsHandler.Delete)
+
+		r.Post("/experiences", experiencesHandler.Create)
+		r.Put("/experiences/{id}", experiencesHandler.Update)
+		r.Delete("/experiences/{id}", experiencesHandler.Delete)
+
+		r.Post("/portfolios", portfoliosHandler.Create)
+		r.Put("/portfolios/{id}", portfoliosHandler.Update)
+		r.Delete("/portfolios/{id}", portfoliosHandler.Delete)
+
+		r.Post("/social-links", socialLinksHandler.Create)
+		r.Put("/social-links/{id}", socialLinksHandler.Update)
+		r.Delete("/social-links/{id}", socialLinksHandler.Delete)
+
+		r.Put("/settings", settingsHandler.Update)
+
+		r.Post("/facts", factsHandler.Create)
+		r.Put("/facts/{id}", factsHandler.Update)
+		r.Delete("/facts/{id}", factsHandler.Delete)
+
+		r.Post("/clients", clientsHandler.Create)
+		r.Put("/clients/{id}", clientsHandler.Update)
+		r.Delete("/clients/{id}", clientsHandler.Delete)
+
+		r.Post("/blog-posts", blogPostsHandler.Create)
+		r.Put("/blog-posts/{id}", blogPostsHandler.Update)
+		r.Delete("/blog-posts/{id}", blogPostsHandler.Delete)
+
+		r.Post("/auth/change-password", authHandler.ChangePassword)
+
+		r.Post("/upload", uploadHandler.Upload)
+
+	})
+
+	addr := fmt.Sprintf(":%s", cfg.Port)
+	log.Printf("🚀 Porto API running on http://localhost%s", addr)
+	log.Fatal(http.ListenAndServe(addr, r))
+}
