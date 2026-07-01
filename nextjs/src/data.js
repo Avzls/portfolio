@@ -47,6 +47,8 @@ export const experiences = [
   { id: 3, title: "Petugas Sortir", company: "PT. Kantor Pos Indonesia", period: "2021 - 2022" },
   { id: 4, title: "Customer Service", company: "PT. Bank Central Asia", period: "2022 - 2024" },
   { id: 5, title: "Backend Developer", company: "Dr.Chip", period: "2021 - 2024" },
+  { id: 6, title: "IT Developer", company: "Lippo Group", period: "2025" },
+  { id: 7, title: "IT Developer", company: "Yasunaga Indonesia", period: "2026" },
 ];
 
 // Newest projects first (added from the /Project folder), followed by the
