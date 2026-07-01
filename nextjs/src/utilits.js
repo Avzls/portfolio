@@ -2,7 +2,7 @@ import $ from "jquery";
 import "jquery-mousewheel";
 import "malihu-custom-scrollbar-plugin";
 export const jqueryFuntion = () => {
-  $(window).on("load", function () {
+  const runOnLoad = function () {
     /* ----------------------------------------------------------- */
     /*  PAGE PRELOADER
     /* ----------------------------------------------------------- */
@@ -147,7 +147,15 @@ export const jqueryFuntion = () => {
         new WOW.WOW().init();
       }
     }
-  });
+  };
+
+  // In a Next.js SPA the window "load" event has usually already fired by the
+  // time this runs from useEffect, so call directly when the document is ready.
+  if (typeof document !== "undefined" && document.readyState === "complete") {
+    runOnLoad();
+  } else {
+    $(window).on("load", runOnLoad);
+  }
 
   $(document).ready(function () {
     /* ----------------------------------------------------------- */

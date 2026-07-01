@@ -25,7 +25,7 @@ const Index = ({ profile, skills, experiences, portfolios, socialLinks, settings
 
   useEffect(() => {
     jqueryFuntion();
-  });
+  }, []);
 
   return (
     <Fragment>
