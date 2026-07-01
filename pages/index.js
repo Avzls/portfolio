@@ -1,40 +1,18 @@
 import Header from "@/src/components/Header";
 import ScrollBar from "@/src/components/ScrollBar";
 import About from "@/src/components/sections/About";
+// import Blog from "@/src/components/sections/Blog";
+// import Clients from "@/src/components/sections/Clients";
 import Contact from "@/src/components/sections/Contact";
 import Copyright from "@/src/components/sections/Copyright";
+// import Facts from "@/src/components/sections/Facts";
 import Home from "@/src/components/sections/Home";
 import Portfolio from "@/src/components/sections/Portfolio";
+// import Testimonials from "@/src/components/sections/Testimonials";
 import Separator from "@/src/components/Separator";
 import { jqueryFuntion } from "@/src/utilits";
 import { Fragment, useEffect } from "react";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
-
-export async function getServerSideProps() {
-  try {
-    const [profileRes, skillsRes, experiencesRes, portfoliosRes, socialLinksRes] = await Promise.all([
-      fetch(`${API_URL}/api/profile`),
-      fetch(`${API_URL}/api/skills`),
-      fetch(`${API_URL}/api/experiences`),
-      fetch(`${API_URL}/api/portfolios`),
-      fetch(`${API_URL}/api/social-links`),
-    ]);
-
-    const profile = await profileRes.json();
-    const skills = await skillsRes.json();
-    const experiences = await experiencesRes.json();
-    const portfolios = await portfoliosRes.json();
-    const socialLinks = await socialLinksRes.json();
-
-    return { props: { profile, skills, experiences, portfolios, socialLinks } };
-  } catch (error) {
-    console.error("Failed to fetch data:", error);
-    return { props: { profile: {}, skills: [], experiences: [], portfolios: [], socialLinks: [] } };
-  }
-}
-
-const Index = ({ profile, skills, experiences, portfolios, socialLinks }) => {
+const Index = () => {
   useEffect(() => {
     jqueryFuntion();
   });
@@ -45,16 +23,22 @@ const Index = ({ profile, skills, experiences, portfolios, socialLinks }) => {
         <Header />
         <div id="wrapper">
           <main className="flex-column-mobile">
-            <Home profile={profile} />
-            <About profile={profile} skills={skills} experiences={experiences} />
+            <Home />
+            <About />
             <Separator type={"down"} />
+            {/* <Facts /> */}
             <Separator type={"up"} />
-            <Portfolio portfolios={portfolios} />
+            <Portfolio />
             <Separator type={"down"} />
+            {/* <Testimonials /> */}
             <Separator type={"up"} />
-            <Contact profile={profile} socialLinks={socialLinks} />
+            <Contact />
+            {/* <Separator type={"down"} />
+            <Clients />
+            <Separator type={"up"} />
+            <Blog /> */}
             <Separator type={"down"} />
-            <Copyright profile={profile} />
+            <Copyright />
           </main>
         </div>
         <ScrollBar />

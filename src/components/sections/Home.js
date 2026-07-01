@@ -1,6 +1,4 @@
-const Home = ({ profile }) => {
-  const firstName = profile?.name?.split(" ")[0] || "Alvin";
-
+const Home = () => {
   return (
     <section className="home image" id="home">
       <div>
@@ -18,14 +16,16 @@ const Home = ({ profile }) => {
               </span>
             </span>
             <span>
-              <span className="animated-layer">{firstName}</span>
+              <span className="animated-layer">Alvin</span>
             </span>
           </h1>
         </div>
       </div>
+      {/* CALL TO ACTION STARTS */}
       <span className="animated-layer animated-btn cta" id="cta">
         <span></span>
       </span>
+      {/* CALL TO ACTION ENDS */}
     </section>
   );
 };
