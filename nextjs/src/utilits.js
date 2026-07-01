@@ -1,7 +1,17 @@
 import $ from "jquery";
 import "jquery-mousewheel";
 import "malihu-custom-scrollbar-plugin";
+
+// Guard against running the imperative jQuery setup more than once. React
+// StrictMode (dev) double-invokes effects, and re-initialising the
+// mCustomScrollbar horizontal scroller on the same element corrupts the layout
+// and hides all content.
+let salimovInitialized = false;
+
 export const jqueryFuntion = () => {
+  if (salimovInitialized) return;
+  salimovInitialized = true;
+
   const runOnLoad = function () {
     /* ----------------------------------------------------------- */
     /*  PAGE PRELOADER

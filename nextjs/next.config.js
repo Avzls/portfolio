@@ -6,7 +6,7 @@
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   // GitHub Pages can't run Next's image optimizer.
   images: { unoptimized: true },
   // Emit /path/index.html so URLs work without a server rewrite.
